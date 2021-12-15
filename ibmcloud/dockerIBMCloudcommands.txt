@@ -1,0 +1,3 @@
+#Replace $MY_NAMESPACE with the namespace value
+docker tag myimage:v1 us.icr.io/$MY_NAMESPACE/hello-world:1
+docker push us.icr.io/$MY_NAMESPACE/hello-world:1

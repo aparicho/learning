@@ -1,0 +1,20 @@
+# Build an image using the Dockerfile -t tag option . build context (path that docker will use to build the image)
+docker build -t my-app:v1 .
+# Show the Docker images
+docker images
+# Copy an image with a new name/tag
+docker tag my-app:v1 second-app:v1
+#Run a container
+docker run my-app:v1
+#Run a container and maps a port to the exposed port on the container
+docker run -p 8080:8080 myimage:v1
+#List containers
+docker ps -a
+#stop all running containers
+docker stop $(docker ps -q)
+#Remove a container
+docker container rm <container_id>
+#Push the image to the registry
+docker push my-app:v1
+# Pull an image from the registry
+docker pull ubuntu:18.04

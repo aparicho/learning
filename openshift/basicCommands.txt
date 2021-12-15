@@ -1,0 +1,4 @@
+oc get pods
+oc get buildconfigs
+# View the OpenShitf project that is currently in use
+oc project

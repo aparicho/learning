@@ -1,0 +1,22 @@
+#Create Service
+ibmcloud resource service-instance-create my-tone-analyzer tone-analyzer standard us-south
+#Bind service to the cluster
+ibmcloud ks cluster service bind --cluster my-cluster --namespace default --service my-tone-analyzer
+#Review that you have access to the service secrets
+kubectl get secrets --namespace=default
+
+#Mount the secret as volume to your pod
+    volumeMounts:
+    - name: service-bind-volume
+      mountPath: "/opt/service-bind"
+    volumes:
+     - name: service-bind-volume
+     secret:
+      defaultMode: 420
+      #secret name from the kubectl get secrets command:
+      secretName: binding-tone
+
+#Reference the Secret in env vars
+binding.apikey
+binding.username
+binding.password

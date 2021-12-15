@@ -1,0 +1,12 @@
+#Show information about the account
+ibmcloud target
+#See the namespaces the account has access
+ibmcloud cr namespaces
+#Set the region target
+ibmcloud cr region-set us-south
+#Log into your IBM Cloud Container registry
+ibmcloud cr login
+#Review images in the Container registry
+ibmcloud cr images
+#Restrict to only a specific namespaces (Replace $MY_NAMESPACE with the namespace value)
+ibmcloud cr images --restrict $MY_NAMESPACE

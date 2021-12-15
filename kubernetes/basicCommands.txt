@@ -1,0 +1,46 @@
+#Create a Pod with imperative command
+kubectl run nginx --image nginx
+kubectl run hello-world --image us.icr.io/$MY_NAMESPACE/hello-world:1 --overrides='{"spec":{"template":{"spec":{"imagePullSecrets":[{"name":"icr"}]}}}}'
+
+#Delete a Pod
+kubectl delete pod hello-world
+
+#Delete a deployment and Service
+kubectl delete deployment/hello-world service/hello-world
+
+#Create using a template with imperative command (create/replace/delete)
+kubectl create -f nginx.yaml
+
+#Get cluster information
+kubectl config get-clusters
+
+#Get context information (cluster, user, namespace)
+kubectl config get-contexts
+
+#Get Pods in your namespace (-o wide to get more details)
+kubectl get pods
+kubectl get pods -o wide
+
+#Declarative command
+kubectl apply -f nginx/
+kubectl apply -f file.yaml
+
+#List one or many resources
+#List all the deployments within the namespace kube-system
+kubectl get deployment --namespace kube-system
+
+#Show Details about a specific resource or group
+kubectl describe deployment kube-dns-amd64 --namespace kube-system 
+
+#Expose an application/service to the internet
+kubectl expose deployment/hello-world
+
+#List Services
+kubectl get services
+
+#Create a proxy (not how you do it in Prod)
+kubectl proxy
+
+#Create a resource
+#Creates a deployment
+kubectl apply -f nginx.yml

@@ -1,0 +1,10 @@
+Operators: way to package, deploy, and manage a K8s native app.
+Examples:
+- Deploying an application
+- Taking and restoring backups of an app's state
+
+- Create a custom resource for the application
+- Deploy a controller for this CRD
+- Operator logic determines how to reconcile the actual and desired states
+    Which k8s objects need to be created?
+    Deployments, Services, PersistentVolumeClaims, etc.

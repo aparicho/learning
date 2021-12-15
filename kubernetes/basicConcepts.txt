@@ -1,0 +1,40 @@
+Cluster - A deployment of K8s
+Control plane - makes decisions about the cluster, detects & responds to events in the cluster.
+    1. kube-api-server
+        Exposes the k8s api
+        All communications in the cluster use this API
+    2. etcd
+        Highly available key-value store
+        Contains all the cluster data
+        Source of truth for the state of the cluster
+    3. kube-scheduler
+        Assigns newly created Pods to nodes
+        Determines where workloads should run
+    4. kube-controller manager
+        Runs all the controller processes
+            Controllers monitor the cluster state
+            Controllers ensure the actual state matches the desired state
+    5. cloud-controller manager
+        Runs controllers that interact with underlying cloud providers
+        Links clusters into a cloud provider's API
+Nodes - worker machines in K8s, virtual or Physical machines managed by the control plane
+    1. kubelet
+        Controller that communicates with the kube-api-server
+        Ensure that Pods and their associated containers are running
+        Reports to control plane on health and status
+        Creates pods using the container runtime
+    2. Container runtime
+        Downloads images and runs containers
+        K8s implements an interface so that this component is pluggable
+        Examples of runtimes: Docker, rkt, CRI-O
+    3. kube-proxy
+        Network proxy
+        Maintains network rules that allow comunication to Pods (within and outside of the cluster)
+
+Controllers
+    Monitor the state of a cluster
+    Take action to ensure the current state matches the desired state
+    Communicate with the API server to initiate these actions
+    Track K8s objects and ensure that the desired state is achieved
+
+

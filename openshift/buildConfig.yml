@@ -1,0 +1,43 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: example
+spec:
+  # What the build will produce
+  output:
+    to:
+      # ImageStream - Abstraction for referencing images within OpenShift
+      # Don't contain image data, just pointers
+      # Source images can be stored in Openshift internal registry, external or other.
+      kind: imageStreamTag
+      name: 'example:latest'
+  # Which build strategy the build will use
+  strategy:
+    type: Source
+    sourceStrategy:
+      from:
+        kind: imageStreamTag
+        name: 'nodejs:10-SCL'
+  # Inputs to the build
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/organizations/repo'
+    contextDir: /
+  # Events that can cause a build to run
+  # Build triggers:
+  # Webhook - GitHub and generic webhooks
+  # Image Change - New version of an image is available. Useful for keeping base images up to date
+  #Configuration change - Build when a new BuildConfig is created
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: example-generic-webhook-secret
+    - type: GitHub
+      github:
+        secretReference:
+          name: example-github-webhook-secret
+    - type: ImageChange
+      imageChange:
+runPolicy: Serial

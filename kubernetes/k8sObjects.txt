@@ -1,0 +1,42 @@
+K8s objects - Persistent entities in k8s that define the desired state for your workloads
+    Pod
+        Simplest unit in k8s
+        Represents processes running in your cluster
+        Encapsulates a container (or sometimes multiple)
+        Replicating a Pod to scale an app horizontally
+    ReplicaSet
+        Maintains a set of identical Pods
+        Definition consists of:
+            Number of replicas
+            Pod Template
+            Generally encapsulated by a Deployment object
+    namespaces
+        Virtualization of a physical cluster
+        Segregate cluster by team, project, etc.
+        Necessary with large number of users
+        Logical separation for clusters
+            1. kube-system
+                Intended for the k8s system
+            2. default
+                Can be used to hold users' apps
+            3. <opt> create more namespaces for teams, projects, etc within a cluster.
+        Provide a scope for object names
+            Each object has a name
+            Names are unique for a resource type within a namespace
+    Deployments
+        Provides updates for Pods and ReplicaSets
+        Runs multiple replicas of your application
+        Suitable for stateless applications
+        Update triggers a rollout
+    ConfigMaps
+    volumes
+Parts of the Object:
+    1. spec - provided by the user (desired state for the object)
+    2. status - provided by k8s (describes the actual states)
+
+Labels
+    key/value pairs attached to objects to identify them
+    Not unique
+    Organize and group objects with the same label
+Selectors
+    Identify and group a set of objects

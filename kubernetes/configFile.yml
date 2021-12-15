@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  my.properties: MESSAGE=hello from the my.properties file
+kind: ConfigMap
+metadata:
+  name: my-config
+  namespace: default

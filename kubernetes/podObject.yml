@@ -1,0 +1,17 @@
+apiVersion: v1
+#type of object to create
+kind: Pod
+#
+metadata:
+    name: nginx
+#Instructions of the desired state of the Pod
+spec:
+    #containers that will run in this Pod
+    containers:
+      #name of the container
+    - name: nginx
+      #image used to run the container
+      image: nginx:1.7.9
+      #ports to expose from the container
+      ports:
+      - containerPort: 80

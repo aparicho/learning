@@ -1,0 +1,72 @@
+#Scale an existing deployment using ctl
+kubectl create -f deployment.yaml
+kubectl scale deploy {deployment-name} --replicas=3
+
+#Autoscale a deployment
+kubectl autoscale deploy {deployment-name} --min=2 --max=5 --cpu-percent=10
+
+#Get information about the Horizontal pod autoscale
+kubectl get hpa
+
+#Set a new image of a deployment
+kubectl set image deployments/{deployment-name} hello-kubernetes=upkar/hello-kubernetes:2.0
+
+#Check status of the rollout
+kubectl rollout status deployments/{deployment-name}
+
+#rollback changes
+kubectl rollout undo deployments/hello-kubernetes
+
+#List configmaps in the cluster
+kubectl get configmaps
+
+#Apply configMap from yaml to a cluster
+kubectl apply -f my-config.yml
+
+#Configmap string literal
+kubectl create configmap my-config --from-literal=MESSAGE="hello from first configmap"
+#Reference on the yaml file:
+env:
+- name: MESSAGE
+ valueFrom:
+  configMapKeyRef:
+    name: my-config
+    key: MESSAGE
+
+#Configmap from a file
+k create cm my-config --from-file=my.properties
+#Reference on the yaml file:
+env:
+- name: MESSAGE
+ valueFrom:
+  configMapKeyRef:
+    name: my-config
+    key: my.properties
+
+#Create a Secret
+kubectl create secret generic api-creds --from-literal=key=mysupersecretapikey
+#Reference on the yaml file:
+env:
+- name: API_CREDS
+ valueFrom:
+  secretKeyRef:
+    name: api-creds
+    key: key
+
+#Create a Secret using volume mounts
+k create secret generic api-creds --from-literal=key=mysupersecretapikey
+#Reference on the yaml file:
+spec:
+ containers:
+  - name: hello-kubernetes
+    image: name/myapp:latest
+    ports:
+    - containerPort: 8080
+    volumeMounts:
+    - name: api-creds
+      mountPath: "/etc/api"
+      readOnly: true
+    volumes:
+     - name: api-creds
+     secret:
+      secretName: api-creds

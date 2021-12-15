@@ -1,0 +1,27 @@
+apiVersion: v1
+#type of object to create
+kind: ReplicaSet
+#
+metadata:
+ name: nginx-replicaset
+ labels:
+  app: nginx
+#Instructions of the desired state of the ReplicaSet
+spec:
+  #
+ replicas: 3
+ #Specifies how to identify Pods that can be adquired by the replicaSet
+ selector:
+  matchLabels:
+   app:nginx
+ #Pod Template
+ template:
+  metadata:
+   labels:
+    app:nginx
+  spec:
+   containers:
+   -name: nginx
+    image: nginx:1.7.9
+    ports:
+    -containerPort: 80

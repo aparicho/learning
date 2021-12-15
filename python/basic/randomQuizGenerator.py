@@ -22,21 +22,26 @@ capitals = {'Alabama': 'Montgomery', 'Alaska': 'Juneau', 'Arizona': 'Phoenix',
 # Generate 35 quiz files.
 for quizNum in range(35): 
     quizFile = open(f'test'+ str(quizNum+1) + '.txt', 'w')   
-    quizFile = open(f'testAnswers'+ str(quizNum+1) + '.txt', 'w')
+    answerKeyFile = open(f'testAnswers'+ str(quizNum+1) + '.txt', 'w')
     quizFile.write('Test!\n\n')
     
     states = list(capitals.keys())
     random.shuffle(states)
-    for state in range(50):
-        
-        correctAnswer = capitals[states[state]]
+    for questionNum in range(50):
+
+         # Get right and wrong answers.
+        correctAnswer = capitals[states[questionNum]]
         wrongAnswers = list(capitals.values())
         del wrongAnswers[wrongAnswers.index(correctAnswer)]
         wrongAnswers = random.sample(wrongAnswers, 3)
         answerOptions = wrongAnswers + [correctAnswer]
         random.shuffle(answerOptions)
-        quizFile.write(f'What\'s the capital of ' + capitals[states[state]] +'?/n')
-        quizFile.write(str(answerOptions) + '?/n')
+        quizFile.write(f'{questionNum + 1}. What is the capital of {states[questionNum]}?\n')
+        for i in range(4):
+            quizFile.write(f"    {'ABCD'[i]}. { answerOptions[i]}\n")
+            quizFile.write('\n')
 
-
-quizFile.close()
+         # Write the answer key to a file.
+        answerKeyFile.write(f"{questionNum + 1}.{'ABCD'[answerOptions.index(correctAnswer)]}")
+    quizFile.close()
+    answerKeyFile.close()

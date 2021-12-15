@@ -1,0 +1,8 @@
+#Base image to use
+FROM ubuntu:18.04
+#Copy the app from the current directory
+COPY . /app
+#Package the app
+RUN make /app
+#Execute the app
+CMD python /app/app.py
